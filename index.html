@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minhas Palavras de Amor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(to right, #ffe6e6, #fff0f5);
+      --card-bg: rgba(255, 255, 255, 0.8);
+      --text-primary: #5a2a27;
+      --text-secondary: #a35e5e;
+      --btn-bg: #ff9a9e;
+      --btn-bg-hover: #ff758c;
+    }
+    .dark {
+      --bg-gradient: linear-gradient(to right, #2b2b2b, #1d1d1d);
+      --card-bg: rgba(34, 34, 34, 0.9);
+      --text-primary: #fbe9e7;
+      --text-secondary: #ffab91;
+      --btn-bg: #6d6875;
+      --btn-bg-hover: #463f5a;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Open Sans', sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-gradient);
+      color: var(--text-primary);
+      overflow: hidden;
+      transition: background 0.6s ease;
+      padding: 2rem;
+    }
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: -1;
+    }
+    .hearts span {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #ff9a9e;
+      transform: rotate(45deg);
+      animation: float 10s linear infinite;
+    }
+    .hearts span::before,
+    .hearts span::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: inherit;
+    }
+    .hearts span::before { top: -50%; }
+    .hearts span::after { left: -50%; }
+    @keyframes float {
+      0%   { transform: translateY(100vh) rotate(45deg); opacity: 0; }
+      10%  { opacity: 1; }
+      100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
+    }
+    .container {
+      background: var(--card-bg);
+      padding: 3rem 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      max-width: 650px;
+      width: 100%;
+      text-align: center;
+      transition: background 0.6s ease;
+    }
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      background: var(--btn-bg);
+      color: #fff;
+      border: none;
+      padding: 0.7rem 1.4rem;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .btn:hover { background: var(--btn-bg-hover); }
+    footer {
+      margin-top: 1.8rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    form {
+      margin-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    form input, form textarea {
+      padding: 0.8rem 1rem;
+      border: 1px solid rgba(0,0,0,0.15);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.9);
+      resize: vertical;
+      font-size: 1rem;
+    }
+    form textarea { min-height: 100px; }
+    form button[type="submit"] {
+      align-self: center;
+      margin-top: 0.5rem;
+    }
+    .floating-btn {
+      position: fixed;
+      bottom: 1rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--btn-bg);
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background 0.3s ease;
+      z-index: 10;
+    }
+    .floating-btn:hover { background: var(--btn-bg-hover); }
+    #darkModeBtn { right: 1rem; }
+    #musicBtn   { right: 4.5rem; }
+  </style>
+</head>
+<body>
+  <div class="hearts" aria-hidden="true">
+    <!-- Corações animados -->
+    <span style="left:10%; animation-delay: 0s;"></span>
+    <span style="left:25%; animation-delay: 2s;"></span>
+    <span style="left:40%; animation-delay: 4s;"></span>
+    <span style="left:60%; animation-delay: 1s;"></span>
+    <span style="left:75%; animation-delay: 3s;"></span>
+    <span style="left:90%; animation-delay: 5s;"></span>
+  </div>
+
+  <!-- Botões flutuantes -->
+  <button id="musicBtn" class="floating-btn" title="Tocar/Pausar música">♪</button>
+  <button id="darkModeBtn" class="floating-btn" title="Ativar/Desativar modo escuro">🌙</button>
+
+  <div class="container">
+    <h1 id="title">Para o amor da minha vida</h1>
+    <p id="message">Desde o momento em que te conheci, soube que meu coração havia encontrado seu lar. Cada dia ao seu lado é poesia viva, e meu amor por você cresce em cada batida. Obrigado por ser minha razão de sorrir.</p>
+    <button id="newMsgBtn" class="btn">Nova declaração</button>
+
+    <!-- Formulário -->
+    <form id="customForm">
+      <h2 style="font-family:'Great Vibes',cursive; font-size:1.8rem;">Envie sua declaração ❤</h2>
+      <input type="text" id="nameInput" placeholder="Seu nome" required/>
+      <textarea id="msgInput" placeholder="Sua declaração" required></textarea>
+      <button type="submit" class="btn">Enviar</button>
+    </form>
+
+    <footer id="footerSign">Com todo meu amor</footer>
+  </div>
+
+  <script>
+    const mensagens = [
+      "Você é meu sol em dias nublados.",
+      "Com você, todos os dias são especiais.",
+      "Te amar é a melhor parte da minha vida.",
+      "Seu sorriso ilumina meu mundo.",
+      "Minha vida é mais bonita com você."
+    ];
+    const messageEl = document.getElementById('message');
+    document.getElementById('newMsgBtn').addEventListener('click', () => {
+      const nova = mensagens[Math.floor(Math.random() * mensagens.length)];
+      messageEl.textContent = nova;
+    });
+
+    document.getElementById('darkModeBtn').addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+    });
+
+    const music = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
+    music.loop = true;
+    document.getElementById('musicBtn').addEventListener('click', () => {
+      if (music.paused) music.play();
+      else music.pause();
+    });
+
+    document.getElementById('customForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Declaração enviada com sucesso! 💌');
+      this.reset();
+    });
+  </script>
+</body>
+  </html>
